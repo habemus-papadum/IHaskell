@@ -92,9 +92,9 @@ script:
         # Run the notebook to regenerate the outputs, then compare the new notebook to the old one.
         stack install --fast
         stack exec -- ihaskell install --stack
-        stack exec -- jupyter nbconvert --to=notebook --execute --stdout notebooks/IHaskell.ipynb > ~/ihaskell-out.ipynb
+        # stack exec -- jupyter nbconvert --to=notebook --execute --stdout notebooks/IHaskell.ipynb > ~/ihaskell-out.ipynb
 
         # Images are rendered differently on different systems, so filter them out in the comparison
-        diff <(grep -v image/png ~/ihaskell-out.ipynb) <(grep -v image/png notebooks/IHaskell.ipynb)
+        # diff <(grep -v image/png ~/ihaskell-out.ipynb) <(grep -v image/png notebooks/IHaskell.ipynb)
     fi
     
