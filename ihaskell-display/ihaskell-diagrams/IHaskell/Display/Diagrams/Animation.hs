@@ -1,7 +1,7 @@
 {-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
 
-module IHaskell.Display.Diagrams.Animation (animation) where
-
+module IHaskell.Display.Diagrams.Animation () where
+{-
 import qualified Data.Text as T
 import qualified Data.ByteString.Char8 as CBS
 
@@ -54,3 +54,4 @@ animationData renderable = do
 -- Rendering hint.
 animation :: Animation Cairo V2 Double -> Animation Cairo V2 Double
 animation = id
+-}

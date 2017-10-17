@@ -10,8 +10,8 @@ packages:
     - ./ihaskell-display/ihaskell-gnuplot
     - ./ihaskell-display/ihaskell-hatex
     - ./ihaskell-display/ihaskell-juicypixels
-    - ./ihaskell-display/ihaskell-magic
-    - ./ihaskell-display/ihaskell-plot
+#    - ./ihaskell-display/ihaskell-magic
+#    - ./ihaskell-display/ihaskell-plot
     - ./ihaskell-display/ihaskell-static-canvas
     - ./ihaskell-display/ihaskell-widgets
 resolver: lts-9.9

@@ -61,7 +61,8 @@ library
                        -- Use diagrams wrapper package to ensure all same versions of subpackages
                        diagrams >= 1.3,
                        diagrams-lib,
-                       diagrams-cairo,
+                       diagrams-svg,
+                       diagrams-rasterific,
                        ihaskell >= 0.6.2,
 
                        -- The active package, used to represent animations
