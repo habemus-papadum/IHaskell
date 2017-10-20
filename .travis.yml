@@ -2,13 +2,13 @@
 matrix:
   include:
     - os: linux
-        env: USE_STACK_YAML="stack.yaml"
+      env: USE_STACK_YAML="stack.yaml"
     - os: linux
-        env: USE_STACK_YAML="stack-8.2.yaml"
+      env: USE_STACK_YAML="stack-8.2.yaml"
     - os: osx
-        env: USE_STACK_YAML="stack.yaml"
+      env: USE_STACK_YAML="stack.yaml"
     - os: osx
-        env: USE_STACK_YAML="stack-8.2.yaml"
+      env: USE_STACK_YAML="stack-8.2.yaml"
 
 # Choose a lightweight base image; we provide our own build tools.
 language: python
