@@ -1,7 +1,16 @@
 # Test against different stack LTS versions.
-env:
- - DISPLAY=true   USE_STACK_YAML="stack.yaml"     # GHC 8.0.2
- - DISPLAY=true   USE_STACK_YAML="stack-8.2.yaml" # GHC 8.2.1
+matrix:
+  include:
+    - os: linux
+      env: USE_STACK_YAML="stack.yaml"
+    - os: linux
+      env: USE_STACK_YAML="stack-8.2.yaml"
+#    Enable osx -> switch lang from python to c, bootstrap cache
+#    - os: osx
+#      env: USE_STACK_YAML="stack.yaml"
+#    - os: osx
+#      env: USE_STACK_YAML="stack-8.2.yaml"
+
 
 matrix:
   include:
@@ -25,18 +34,6 @@ cache:
   - $HOME/.cabal
   - $HOME/.stack
   - $HOME/zeromq
-
-# Enable packages we need.
-# Not all packages are available – see before_install for from-source builds. 
-addons:
-  apt:
-    packages:
-      - libmagic-dev     # magic
-      - libgmp-dev       # ghc
-      - libblas-dev      # hmatrix
-      - liblapack-dev    # hmatrix
-      - libcairo2-dev    # cairo
-      - libpango1.0-dev  # pango
 
 before_install:
     # Download and unpack the stack executable
@@ -97,20 +94,18 @@ script:
   - stack test --no-terminal --fast
   - |
     set -e
-    if $DISPLAY; then
-        TOP=$(pwd)
-        stack build --no-terminal --fast
+    TOP=$(pwd)
+    stack build --no-terminal --fast
 
-        # Ensure that ipython-kernel examples build successfully.
-        stack build ipython-kernel --flag ipython-kernel:examples --fast
+    # Ensure that ipython-kernel examples build successfully.
+    stack build ipython-kernel --flag ipython-kernel:examples --fast
 
-        # Ensure that IHaskell notebook remains unchanged.
-        # Run the notebook to regenerate the outputs, then compare the new notebook to the old one.
-        stack install --fast
-        stack exec -- ihaskell install --stack
-        # stack exec -- jupyter nbconvert --to=notebook --execute --stdout notebooks/IHaskell.ipynb > ~/ihaskell-out.ipynb
+    # Ensure that IHaskell notebook remains unchanged.
+    # Run the notebook to regenerate the outputs, then compare the new notebook to the old one.
+    stack install --fast
+    stack exec -- ihaskell install --stack
+    # stack exec -- jupyter nbconvert --to=notebook --execute --stdout notebooks/IHaskell.ipynb > ~/ihaskell-out.ipynb
 
-        # Images are rendered differently on different systems, so filter them out in the comparison
-        # diff <(grep -v image/png ~/ihaskell-out.ipynb) <(grep -v image/png notebooks/IHaskell.ipynb)
-    fi
-    
+    # Images are rendered differently on different systems, so filter them out in the comparison
+    # diff <(grep -v image/png ~/ihaskell-out.ipynb) <(grep -v image/png notebooks/IHaskell.ipynb)
+
