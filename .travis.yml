@@ -11,12 +11,6 @@ matrix:
 #    - os: osx
 #      env: USE_STACK_YAML="stack-8.2.yaml"
 
-
-matrix:
-  include:
-    - os: linux
-    - os: osx
-
 # Choose a lightweight base image; we provide our own build tools.
 language: python
 python:
