@@ -1,24 +1,24 @@
 {-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
 
-module IHaskell.Display.Diagrams.Animation () where
-{-
+module IHaskell.Display.Diagrams.Animation (animation) where
+
 import qualified Data.Text as T
 import qualified Data.ByteString.Char8 as CBS
 
 import           Diagrams.Prelude
-import           Diagrams.Backend.Cairo
-import           Diagrams.Backend.Cairo.CmdLine (GifOpts(..))
+import           Diagrams.Backend.Rasterific
+import           Diagrams.Backend.Rasterific.CmdLine (GifOpts(..))
 import           Diagrams.Backend.CmdLine (DiagramOpts(..), mainRender)
 
 import           IHaskell.Display
 
-instance IHaskellDisplay (QAnimation Cairo V2 Double Any) where
+instance IHaskellDisplay (QAnimation Rasterific V2 Double Any) where
   display renderable = do
     gif <- animationData renderable
     return $ Display [html $ "<img src=\"data:image/gif;base64,"
                              ++ gif ++ "\" />"]
 
-animationData :: Animation Cairo V2 Double -> IO String
+animationData :: Animation Rasterific V2 Double -> IO String
 animationData renderable = do
   switchToTmpDir
 
@@ -52,6 +52,5 @@ animationData renderable = do
   return . T.unpack . base64 $ imgData
 
 -- Rendering hint.
-animation :: Animation Cairo V2 Double -> Animation Cairo V2 Double
+animation :: Animation Rasterific V2 Double -> Animation Rasterific V2 Double
 animation = id
--}
