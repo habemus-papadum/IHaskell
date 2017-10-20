@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -ex
+
+echo "Integrating local IHaskell checkout in to stack notebook framework"
+snapshot=$(basename "$(dirname "$(stack path --snapshot-install-root)")")
+echo "Using stack snapshot ${snapshot}..."
+notebook_dir=${HOME}/.stack-notebook
+nb_snapshot_dir=${notebook_dir}/snapshots/${snapshot}
+
+mkdir -p nb_snapshot_dir/bin
+
+ihaskell_dir=${nb_snapshot_dir}/IHaskell
+if [ -e ${ihaskell_dir} ]; then
+  echo "${ihaskell_dir} exists, please move it out of the way" && exit 1
+fi
+ln -s $PWD ${ihaskell_dir}
+
+ihaskell=${nb_snapshot_dir}/bin/ihaskell
+if [ -e ${ihaskell} ]; then
+  echo "${ihaskell} exists, please move it out of the way" && exit 1
+fi
+set +e
+local_ihaskell=$(stack exec which -- ihaskell)
+set -e
+if [ -z "${local_ihaskell}" ]; then
+    echo "local ihaskell not found .stack_work directory; please 'stack build' prior to integrating" && exit 1
+fi
+
+ln -s ${local_ihaskell} ${ihaskell}
