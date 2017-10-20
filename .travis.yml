@@ -3,6 +3,11 @@ env:
  - DISPLAY=true   USE_STACK_YAML="stack.yaml"     # GHC 8.0.2
  - DISPLAY=true   USE_STACK_YAML="stack-8.2.yaml" # GHC 8.2.1
 
+matrix:
+  include:
+    - os: linux
+    - os: osx
+
 # Choose a lightweight base image; we provide our own build tools.
 language: python
 python:
@@ -37,12 +42,21 @@ before_install:
     # Download and unpack the stack executable
   - export PATH=$HOME/.local/bin:$PATH
   - mkdir -p ~/.local/bin
-  - curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
-
+  - |
+    if [ `uname` = "Linux" ]; then
+      mkdir -p $HOME/bin
+      export PATH=$HOME/.local/bin:$PATH
+      mkdir -p ~/.local/bin
+      curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+    elif [ `uname` = "Darwin" ]; then
+      brew update
+      brew install -v haskell-stack
+    fi
     # Install zeromq3 -- the package is not supported yet on Travis whitelist... (06/06/2016)
   - |
-    if [ ! -d "$HOME/zeromq/lib" ]; then
-        export OLDPWD=$(pwd) 
+    if [ `uname` = "Linux" ]; then
+      if [ ! -d "$HOME/zeromq/lib" ]; then
+        export OLDPWD=$(pwd)
         travis_retry git clone http://www.github.com/zeromq/zeromq4-x.git libzmq
         mkdir $HOME/zeromq
         cd libzmq
@@ -51,6 +65,11 @@ before_install:
         make
         travis_retry make install
         cd $OLDPWD
+      fi
+      export PKG_CONFIG_PATH=$HOME/zeromq/lib/pkgconfig/
+      export LD_LIBRARY_PATH=$HOME/zeromq/lib
+    elif [ `uname` = "Darwin" ]; then
+      brew install -v zeromq
     fi
 
     # Upgrades to avoid later build problems
@@ -63,7 +82,7 @@ before_install:
 # This step takes the longest, and is what generates the Stack cache. 
 install:
   # Set path for pkg-config to find zeromq, otherwise install of zeromq4-haskell fails.
-  - export PKG_CONFIG_PATH=$HOME/zeromq/lib/pkgconfig/
+  -
   - |
     # Used to avoid 'source and destination file are the same' error
     mv $USE_STACK_YAML intermediate-stack.yaml
@@ -72,12 +91,9 @@ install:
     echo "apply-ghc-options: everything" >> stack.yaml
 
   - stack setup
-  - stack install gtk2hs-buildtools --fast
-  - stack build hmatrix --fast
   - stack build --dependencies-only --fast
 
 script:
-  - export LD_LIBRARY_PATH=$HOME/zeromq/lib
   - stack test --no-terminal --fast
   - |
     set -e
