@@ -1,0 +1,53 @@
+flags: {}
+packages:
+    - .
+    - ./ipython-kernel
+    - ./ghc-parser
+    - ./ihaskell-display/ihaskell-aeson
+    - ./ihaskell-display/ihaskell-blaze
+    - ./ihaskell-display/ihaskell-charts
+    - ./ihaskell-display/ihaskell-diagrams
+    - ./ihaskell-display/ihaskell-gnuplot
+    - ./ihaskell-display/ihaskell-hatex
+    - ./ihaskell-display/ihaskell-juicypixels
+    - ./ihaskell-display/ihaskell-static-canvas
+    - ./ihaskell-display/ihaskell-widgets
+    - location:
+        git: https://github.com/amcphail/plot.git
+        commit: cc5cdff696aa99e1001124917c3b87b95529c4e3
+      extra-dep: true
+resolver: nightly
+allow-newer: true
+extra-deps:
+- Chart-1.8.2
+- Chart-diagrams-1.8.2
+- cubicbezier-0.6.0.4
+- diagrams-1.4
+- diagrams-rasterific-1.4
+- diagrams-contrib-1.4.1
+- diagrams-core-1.4.0.1
+- diagrams-lib-1.4.1.2
+- diagrams-solve-0.1.1
+- diagrams-svg-1.4.1
+- dual-tree-0.2.1
+- fast-math-1.0.2
+- mfsolve-0.3.2.0
+- statestack-0.2.0.5
+- static-canvas-0.2.0.3
+- svg-builder-0.1.0.2
+- SVGFonts-1.6.0.3
+- diagrams-postscript-1.4
+
+nix:
+  enable: false
+  packages:
+    - blas
+    - cairo
+    - file
+    - gcc
+    - liblapack
+    - ncurses
+    - pango
+    - pkgconfig
+    - zeromq
+    - zlib

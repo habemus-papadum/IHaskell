@@ -2,9 +2,12 @@
 matrix:
   include:
     - os: linux
-      env: USE_STACK_YAML="stack.yaml"
+      env: USE_STACK_YAML="stack-lts-9.10.yaml"
     - os: linux
-      env: USE_STACK_YAML="stack-8.2.yaml"
+      env: USE_STACK_YAML="stack-lts-nightly.yaml"
+    - os: linux
+      env: USE_STACK_YAML="stack.yaml"
+
 #    Enable osx -> switch lang from python to c, bootstrap cache
 #    - os: osx
 #      env: USE_STACK_YAML="stack.yaml"
@@ -76,7 +79,8 @@ install:
   -
   - |
     # Used to avoid 'source and destination file are the same' error
-    mv $USE_STACK_YAML intermediate-stack.yaml
+    cat $USE_STACK_YAML > intermediate-stack.yaml
+    rm stack.yaml
     mv intermediate-stack.yaml stack.yaml
 
     echo "apply-ghc-options: everything" >> stack.yaml
