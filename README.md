@@ -1,6 +1,26 @@
 Habemus Papadum Fork of upstream
 [![Build Status](https://travis-ci.org/habemus-papadum/stack-notebook.svg?branch=master)](https://travis-ci.org/habemus-papadum/stack-notebook)
 
+# Changes, Issues, & Goals wrt Upstream 
+* [x] Removed cairo and gtk and libmagic deps
+* Displays
+   * in Proof of Concept state (e.g. hard coded chart size, etc).
+   * Introduce small integration shim with the minimum type classes that 3rd packages
+     need to be displayable
+     * Add kernel state to parameters of `display` (so user can set default image size, etc)
+   * `display` should perhaps return html dom, so rendering is easily composable
+   * Needs major reworking, but no point doing until deeper things below are bette understood
+   * Are widgets working?  Did I break them?
+* Plumbing
+  * track down msg after channel closed error
+  * debug mode data shows up in cells
+  * stdin/stdout?
+* Semantics
+   * Document and refine semantics of evaluation
+* Usability -- TODO: make a list of current gotchas, wishlist for workflows         
+     
+
+
 ![jupyter](https://i.imgur.com/S16l2Hw.png) ![IHaskell](https://i.imgur.com/qhXXFbA.png) [![Build Status](https://travis-ci.org/gibiansky/IHaskell.svg?branch=master)](https://travis-ci.org/gibiansky/IHaskell)
 
 # IHaskell
