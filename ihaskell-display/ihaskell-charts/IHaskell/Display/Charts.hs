@@ -19,8 +19,6 @@ height = 300
 
 instance IHaskellDisplay (Renderable a) where
   display renderable = do
-    -- We can add `svg svgDisplay` to the output of `display`, but SVGs are not resizable in the IPython
-    -- notebook.
     svgDisp <- chartData renderable SVG
 
     return $ Display [svgDisp]

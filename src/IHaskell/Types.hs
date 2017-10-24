@@ -153,7 +153,6 @@ defaultKernelState :: KernelState
 defaultKernelState = KernelState
   { getExecutionCounter = 1
   , getLintStatus = LintOn
-  , useSvg = False
   , useShowErrors = False
   , useShowTypes = False
   , usePager = True
@@ -175,8 +174,6 @@ kernelOpts :: [KernelOpt]
 kernelOpts =
   [ KernelOpt ["lint"] [] $ \state -> state { getLintStatus = LintOn }
   , KernelOpt ["no-lint"] [] $ \state -> state { getLintStatus = LintOff }
-  , KernelOpt ["svg"] [] $ \state -> state { useSvg = True }
-  , KernelOpt ["no-svg"] [] $ \state -> state { useSvg = False }
   , KernelOpt ["show-types"] ["+t"] $ \state -> state { useShowTypes = True }
   , KernelOpt ["no-show-types"] ["-t"] $ \state -> state { useShowTypes = False }
   , KernelOpt ["show-errors"] [] $ \state -> state { useShowErrors = True }

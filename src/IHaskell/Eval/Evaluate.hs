@@ -806,7 +806,6 @@ evalCommand _ (Directive GetHelp _) state = do
                     , ""
                     , "Options:"
                     , "  lint        – enable or disable linting."
-                    , "  svg         – use svg output (cannot be resized)."
                     , "  show-types  – show types of all bound names"
                     , "  show-errors – display Show instance missing errors normally."
                     , "  pager       – use the pager to display results of :info, :doc, :hoogle, etc."
@@ -935,11 +934,6 @@ evalCommand output (Expression expr) state = do
       where
         msg = extractPlain errs
 
-    isSvg (DisplayData mime _) = mime == MimeSvg
-
-    removeSvg :: Display -> Display
-    removeSvg (Display disps) = Display $ filter (not . isSvg) disps
-    removeSvg (ManyDisplay disps) = ManyDisplay $ map removeSvg disps
 
     useDisplay displayExpr = do
       -- If there are instance matches, convert the object into a Display. We also serialize it into a
@@ -967,11 +961,9 @@ evalCommand output (Expression expr) state = do
               bytestring <- liftIO bytestringIO
               case Serialize.decode bytestring of
                 Left err -> error err
-                Right display ->
-                  return $
-                    if useSvg state
-                      then display :: Display
-                      else removeSvg display
+                Right display -> return display
+
+
 
 #if MIN_VERSION_ghc(8,2,0)
     isIO expr = attempt $ exprType TM_Inst $ printf "((\\x -> x) :: IO a -> IO a) (%s)" expr
