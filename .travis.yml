@@ -98,8 +98,8 @@ script:
     # Ensure that ipython-kernel examples build successfully.
     stack build ipython-kernel --flag ipython-kernel:examples --fast
 
-    # Ensure that IHaskell notebook remains unchanged.
-    # Run the notebook to regenerate the outputs, then compare the new notebook to the old one.
+
+    # Just install.  stack notebook does a more thorough test
     stack install --fast
     stack exec -- ihaskell install --stack
     # stack exec -- jupyter nbconvert --to=notebook --execute --stdout notebooks/IHaskell.ipynb > ~/ihaskell-out.ipynb
