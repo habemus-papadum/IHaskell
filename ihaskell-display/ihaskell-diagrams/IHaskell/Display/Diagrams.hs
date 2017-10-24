@@ -1,21 +1,23 @@
 {-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
 
-module IHaskell.Display.Diagrams (diagram, animation) where
+module IHaskell.Display.Diagrams (rasterDiagram, 
+                                  -- animation
+                                 ) where
 
 import qualified Data.ByteString.Char8 as Char
 import           System.Directory
 import           System.IO.Unsafe
-import           Diagrams.Backend.Rasterific
+import qualified Diagrams.Backend.Rasterific as RASTA
 import           Diagrams.Prelude
 import           IHaskell.Display
-import           IHaskell.Display.Diagrams.Animation
+-- import           IHaskell.Display.Diagrams.Animation
 
-instance IHaskellDisplay (QDiagram Rasterific V2 Double Any) where
+instance IHaskellDisplay (QDiagram RASTA.Rasterific V2 Double Any) where
   display renderable = do
     png <- diagramData renderable
     return $ Display [png]
 
-diagramData :: Diagram Rasterific -> IO DisplayData
+diagramData :: Diagram RASTA.Rasterific -> IO DisplayData
 diagramData renderable = do
   switchToTmpDir
 
@@ -28,7 +30,7 @@ diagramData renderable = do
 
   -- Write the image.
   let filename = ".ihaskell-diagram.png"
-  renderRasterific filename (mkSizeSpec2D (Just imgWidth) (Just imgHeight)) renderable
+  RASTA.renderRasterific filename (mkSizeSpec2D (Just imgWidth) (Just imgHeight)) renderable
 
   -- Convert to base64.
   imgData <- Char.readFile filename
@@ -38,5 +40,5 @@ diagramData renderable = do
 
 
 -- Rendering hint.
-diagram :: Diagram Rasterific -> Diagram Rasterific
-diagram = id
+rasterDiagram :: Diagram RASTA.Rasterific -> Diagram RASTA.Rasterific
+rasterDiagram = id
