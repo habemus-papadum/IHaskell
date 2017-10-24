@@ -24,3 +24,5 @@ cabal.sandbox.config
 .tmp3
 .stack-work
 result
+TAGS
+cabal.config

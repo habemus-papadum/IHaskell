@@ -49,6 +49,7 @@ cabal-version:       >=1.16
 library
   -- Modules exported by the library.
   exposed-modules:     IHaskell.Display.Diagrams
+  hs-source-dirs:      .
   
   -- Modules included in this library but not exported.
   other-modules:       IHaskell.Display.Diagrams.Animation
