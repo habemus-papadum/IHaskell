@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -e
+
+echo "Running stack notebook for development IHaskell..."
+project_root=$(stack path --project-root)
+echo "Project root: ${project_root}"
+snapshot=$(basename "$(dirname "$(stack path --snapshot-install-root)")")
+echo "Using stack snapshot ${snapshot}..."
+notebook_dir=${HOME}/.stack-notebook
+nb_snapshot_dir=${notebook_dir}/snapshots/${snapshot}
+
+export IHASKELL_DEV_MODE="-dev"
+ihaskell_dir=${nb_snapshot_dir}/IHaskell${IHASKELL_DEV_MODE}
+ln -sf ${project_root} ${ihaskell_dir}
+stack notebook
