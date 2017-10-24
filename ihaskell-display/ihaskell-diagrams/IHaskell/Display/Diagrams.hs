@@ -2,6 +2,7 @@
 
 module IHaskell.Display.Diagrams (rasterDiagram, 
                                   svgDiagram,
+                                  diagram,
                                   -- animation
                                  ) where
 
@@ -79,4 +80,7 @@ diagramDataSVG renderable = do
 -- Rendering hint.
 svgDiagram :: Diagram SVG.SVG -> Diagram SVG.SVG
 svgDiagram = id
+
+diagram :: Diagram SVG.SVG -> Diagram SVG.SVG
+diagram = svgDiagram
 
