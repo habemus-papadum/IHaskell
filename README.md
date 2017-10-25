@@ -10,7 +10,6 @@ Habemus Papadum Fork of upstream
      * Add kernel state to parameters of `display` (so user can set default image size, etc)
    * `display` should perhaps return html dom, so rendering is easily composable
    * Needs major reworking, but no point doing until deeper things below are bette understood
-   * Are widgets working?  Did I break them?
 * Plumbing
   * track down msg after channel closed error
   * debug mode data shows up in cells
