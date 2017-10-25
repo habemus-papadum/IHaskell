@@ -139,7 +139,6 @@ data KernelState =
        KernelState
          { getExecutionCounter :: Int
          , getLintStatus :: LintStatus   -- Whether to use hlint, and what arguments to pass it.
-         , useSvg :: Bool
          , useShowErrors :: Bool
          , useShowTypes :: Bool
          , usePager :: Bool
