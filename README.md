@@ -17,7 +17,7 @@ Habemus Papadum Fork of upstream
 * Semantics
    * Document and refine semantics of evaluation
 * Usability -- TODO: make a list of current gotchas, wishlist for workflows         
-     
+* kernel instability? cause by svg changes? or something else?     
 
 
 ![jupyter](https://i.imgur.com/S16l2Hw.png) ![IHaskell](https://i.imgur.com/qhXXFbA.png) [![Build Status](https://travis-ci.org/gibiansky/IHaskell.svg?branch=master)](https://travis-ci.org/gibiansky/IHaskell)
