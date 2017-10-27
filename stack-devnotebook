@@ -9,4 +9,4 @@ nb_snapshot_dir=${notebook_dir}/snapshots/${snapshot}
 export IHASKELL_DEV_MODE="-dev"
 ihaskell_dir=${nb_snapshot_dir}/IHaskell${IHASKELL_DEV_MODE}
 ln -sf ${project_root} ${ihaskell_dir}
-stack notebook
+stack notebook "$@"

@@ -1,0 +1,37 @@
+## stack.yaml to use when we can not match up to a support lts
+## disable all displays
+flags: {}
+packages:
+    - .
+    - ./ipython-kernel
+    - ./ghc-parser
+#    - ./ihaskell-display/ihaskell-aeson
+#    - ./ihaskell-display/ihaskell-blaze
+#    - ./ihaskell-display/ihaskell-charts
+#    - ./ihaskell-display/ihaskell-diagrams
+#    - ./ihaskell-display/ihaskell-gnuplot
+#    - ./ihaskell-display/ihaskell-hatex
+#    - ./ihaskell-display/ihaskell-juicypixels
+#    - ./ihaskell-display/ihaskell-magic
+#    - ./ihaskell-display/ihaskell-plot
+#    - ./ihaskell-display/ihaskell-static-canvas
+#    - ./ihaskell-display/ihaskell-widgets
+resolver: lts-8.5
+extra-deps: []
+flags:
+  ihaskell:
+    binpkgdb: false
+
+nix:
+  enable: false
+  packages:
+    - blas
+    - cairo
+    - file
+    - gcc
+    - liblapack
+    - ncurses
+    - pango
+    - pkgconfig
+    - zeromq
+    - zlib
