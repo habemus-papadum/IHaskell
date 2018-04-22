@@ -13,7 +13,13 @@ packages:
     - ./ihaskell-display/ihaskell-static-canvas
     - ./ihaskell-display/ihaskell-widgets
 resolver: lts-11.5
-extra-deps: []
+extra-deps: 
+    - Chart-diagrams-1.8.3
+    - diagrams-1.4
+    - diagrams-lib-1.4.2.1
+    - diagrams-rasterific-1.4
+    - diagrams-svg-1.4.1.1
+    - static-canvas-0.2.0.3
 flags:
   ihaskell:
     binpkgdb: false
