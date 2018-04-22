@@ -32,5 +32,5 @@ extra-deps:
     - mfsolve-0.3.2.0
     - fast-math-1.0.2
 flags:
-ihaskell:
-    binpkgdb: false
+    ihaskell:
+        binpkgdb: false
