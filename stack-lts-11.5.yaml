@@ -30,6 +30,7 @@ extra-deps:
     - cubicbezier-0.6.0.5
     - free-4.12.4
     - mfsolve-0.3.2.0
-    - fast-math-1.0.2flags:
+    - fast-math-1.0.2
+flags:
 ihaskell:
     binpkgdb: false
